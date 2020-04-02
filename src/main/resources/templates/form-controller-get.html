@@ -1,0 +1,28 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Form Control: GET</title>
+</head>
+<body>
+<form action="/add-book" mo method="post" >
+    Author: <input name="author">
+    <br />
+    Ibsn: <input name="ibsn">
+    <br />
+    Name: <input name="name">
+    <br />
+    <button type="submit">Send</button>
+</form>
+
+<tr th:each="book: ${books}">
+    <td th:text="${book.getAuthor()}"></td>
+    <span style='padding-left:10px;'> </span>
+    <td th:text="${book.getIbsn()}"></td>
+    <span style='padding-left:10px;'> </span>
+    <td th:text="${book.getName()}"></td>
+    <span style='padding-left:10px;'> </span>
+    <p></p>
+
+
+</tr>
+</body>
+</html>
