@@ -6,6 +6,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -20,16 +21,20 @@ public class Application {
 	public static void main(String[] args) {
 		ApplicationContext aplCont= SpringApplication.run(Application.class, args);
 		bookService=aplCont.getBean(BookService.class);
-		bookService.createUser("2","2", "3");
-		bookService.createUser("1","2", "aa");
-		System.out.println(bookService.findByName("1"));
+		//bookService.createUser("2","2", "3");
+		//bookService.createUser("1","2", "aa");
+		//System.out.println(bookService.findByName("1"));
 		//bookService.createUser("1","2", "3");
 
 		//System.out.println(bookService.getAllUsers());
 	}
-	@RequestMapping({ "/", "" })
-	public String index() {
-		return "index";
+
+	@RequestMapping(value = "/book/{id}")
+	public String getBook(@PathVariable(value = "id")int id, Model model){
+		Book b=bookService.getBookById(id);
+		//bookService.createUser(b.getName(), b.getIbsn(), b.getAuthor());
+		model.addAttribute("mybook", b);
+		return "BookPage";
 	}
 
 	@RequestMapping(value = "/books-list", method = RequestMethod.GET)

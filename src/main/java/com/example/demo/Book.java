@@ -7,7 +7,12 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "book")
-@NamedQueries(@NamedQuery(query = "select b from Book  b where b.name= :name", name = Book.Find_By_Name))
+@NamedQueries({
+        @NamedQuery(query = "select b from Book  b where b.name= :name", name = Book.Find_By_Name),
+        @NamedQuery(query = "select b from Book  b where b.ibsn= :ibsn", name = Book.Find_By_Ibsn),
+        @NamedQuery(query = "select b from Book  b where b.author= :author", name = Book.Find_By_Author)
+})
+
 @Getter
 @Setter
 @ToString
@@ -48,7 +53,7 @@ public class Book {
         return this.author;
     }
     public String toString(){
-        return this.name+"; "+this.ibsn+"; "+ this.author+"\n";
+        return this.name+"  "+this.ibsn+"  "+ this.author+"\n";
     }
 
 }

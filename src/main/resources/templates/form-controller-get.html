@@ -14,13 +14,17 @@
 </form>
 
 <tr th:each="book: ${books}">
-    <td th:text="${book.getAuthor()}"></td>
-    <span style='padding-left:10px;'> </span>
-    <td th:text="${book.getIbsn()}"></td>
+    <a th:href="@{'/book/' + ${book.getId()}}" th:text="${book.getId()}"></a>
     <span style='padding-left:10px;'> </span>
     <td th:text="${book.getName()}"></td>
     <span style='padding-left:10px;'> </span>
-    <p></p>
+    <td th:text="${book.getIbsn()}"></td>
+    <span style='padding-left:10px;'> </span>
+    <td th:text="${book.getAuthor()}"></td>
+    <br>
+
+
+
 
 
 </tr>
