@@ -2,6 +2,7 @@ package com.example.demo;
 
 import lombok.*;
 import org.hibernate.annotations.GeneratorType;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.persistence.*;
 

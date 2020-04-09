@@ -5,10 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,17 +13,12 @@ import java.util.List;
 @Controller
 @SpringBootApplication
 public class Application {
-	List<Book> books123=new ArrayList<>();
+
 	private static BookService bookService;
 	public static void main(String[] args) {
 		ApplicationContext aplCont= SpringApplication.run(Application.class, args);
 		bookService=aplCont.getBean(BookService.class);
-		//bookService.createUser("2","2", "3");
-		//bookService.createUser("1","2", "aa");
-		//System.out.println(bookService.findByName("1"));
-		//bookService.createUser("1","2", "3");
 
-		//System.out.println(bookService.getAllUsers());
 	}
 	@RequestMapping({ "/", "" })
 	public String index(){
@@ -47,20 +39,38 @@ public class Application {
 
 		// code to get books and enrich model with those books\
 
-		model.addAttribute("books", bookService.getAllUsers());
+		model.addAttribute("books", bookService.getBooks());
 
 		return "form-controller-get";
 	}
 	@RequestMapping(value = "/add-book", method = RequestMethod.POST)
 	public String addNewBook(@ModelAttribute Book book1, Model model) {
 		// code to save new book
-
-		bookService.createUser(book1.getName(), book1.getIbsn(), book1.getAuthor());
-		model.addAttribute("books", bookService.getAllUsers());
-
+		Book b=new Book(book1.getName(), book1.getIbsn(), book1.getAuthor());
+		if(!bookService.contains(b)) {
+			bookService.createUser(b);
+			model.addAttribute("books", bookService.getBooks());
+		}
 
 		//System.out.println(bookService.findByName("Andrey"));
 		return "redirect:/books-list";
 	}
+
+	@RequestMapping(value = "/filter")
+	public String GetFilteredBook(){
+		return "Filter";
+
+	}
+	@RequestMapping(value = "/filter2", method = RequestMethod.POST)
+	public String GetFilteredBook(@RequestParam("name") String name, Model model){
+		model.addAttribute("word", bookService.getWord(name));
+
+
+
+		return "FilteredBook";
+
+	}
+
+
 
 }

@@ -3,11 +3,11 @@
     <title>Form Control: GET</title>
 </head>
 <body>
-
-<span style='padding-left:10px;'> </span>
-<td th:text="${mybook.toString()}"></td>
+<tr th:each="book: ${word}">
+    <td th:text="${book}"></td>
+</tr>
 <br>
-<a href="/books-list" th:text="Return"></a>
+<a href="/" th:text="Return"></a>
 <br>
 
 
