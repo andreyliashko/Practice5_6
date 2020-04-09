@@ -28,6 +28,11 @@ public class Application {
 
 		//System.out.println(bookService.getAllUsers());
 	}
+	@RequestMapping({ "/", "" })
+	public String index(){
+		return "redirect:/books-list";
+	}
+
 
 	@RequestMapping(value = "/book/{id}")
 	public String getBook(@PathVariable(value = "id")int id, Model model){
